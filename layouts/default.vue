@@ -8,7 +8,7 @@
           </v-list-item-content>
 
           <v-list-item-action>
-            <v-icon :color="u.id === 2 ? 'primary' : 'grey'">chat</v-icon>
+            <v-icon :color="u.id === user.id ? 'primary' : 'grey'">mdi-message-text</v-icon>
           </v-list-item-action>
         </v-list-item>
       </v-list>
@@ -37,15 +37,16 @@
 import { mapState, mapMutations } from "vuex";
 export default {
   data: () => ({
-    drawer: null,
-    users: [{ id: 1, name: "Юлия" }, { id: 2, name: "Алексий" }]
+    drawer: null
   }),
-  computed: mapState(["user"]),
+  computed: mapState(["user", "users"]),
   methods: {
     ...mapMutations(["clearData"]),
     exit() {
-      this.$router.push("/?message=leave");
-      this.clearData;
+      this.$socket.emit("userLeft", this.user.id, () => {
+        this.$router.push("/?message=leave");
+        this.clearData();
+      });
     }
   }
 };

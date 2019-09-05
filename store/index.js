@@ -1,18 +1,20 @@
 export const state = () => ({
   user: {},
-  messages: []
+  messages: [],
+  users: []
 });
 
 export const mutations = {
   setUser(state, user) {
     state.user = user;
   },
-  clearDate(state) {
-    state.user = '',
-    messages = []
+  clearData(state) {
+    (state.user = {}), (messages = []), (users = []);
   },
   SOCKET_newMessage(state, message) {
-    state.messages.push(message)
+    state.messages.push(message);
+  },
+  SOCKET_updateUsers(state, users) {
+    state.users = users;
   }
 };
-
