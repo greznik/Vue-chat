@@ -28,7 +28,7 @@ import { mapMutations } from "vuex";
 export default {
   layout: "empty",
   head: {
-    title: 'Elegram-чат'
+    title: "Elegram-чат"
   },
   sockets: {
     connect() {
@@ -55,8 +55,15 @@ export default {
           room: this.room
         };
 
-        this.setUser(user);
-        this.$router.push("/chat");
+        this.$socket.emit("joinUser", user, data => {
+          if (typeof data === "string") {
+            console.error(data);
+          } else {
+            user.id = data.userId;
+            this.setUser(user);
+            this.$router.push("/chat");
+          }
+        });
       }
     }
   }
