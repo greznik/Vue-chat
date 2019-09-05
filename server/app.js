@@ -13,7 +13,9 @@ io.on("connection", socket => {
     socket.join(data.room);
 
     payload({ userId: socket.id });
-    socket.emit("newMessage", m("admin", `${data.name}, Вы вошли в чат.`));
+    socket.emit("newMessage", m("admin", `${data.name}, вошел в чат.`));
+    socket.emit("newMessage", m("test", `вы вошли в чат.`));
+
     socket.broadcast
       .to(data.room)
       .emit("newMessage", m("admin", `Пользователь ${data.name} зашел.`));

@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app clipped>
+    <v-navigation-drawer v-model="drawer" app clipped mobile-break-point="700">
       <v-list dense>
         <v-list-item v-for="u in users" :key="u.id" @click.prevent>
           <v-list-item-content>
@@ -26,7 +26,7 @@
     </v-app-bar>
 
     <v-content>
-      <div>
+      <div style="height: 100%">
         <nuxt />
       </div>
     </v-content>
